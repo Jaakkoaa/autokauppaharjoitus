@@ -1,19 +1,16 @@
 
 import React, {useEffect } from "react";
 import {AgGridReact} from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-theme-material.css'
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import 'ag-grid-community/dist/styles/ag-grid.css';
 
-export default function Carlist() {
 
-const [cars, setCars] = React.useState([]);
+export default function Carlist(props) {
 
-useEffect(() => {
-    fetch('https://carstockrest.herokuapp.com/cars')
-    .then(res => res.json())
-    .then(data => setCars(data._embedded.cars))
-    .catch(err => console.error(err))
 
-},[])
+
+
+useEffect(() => console.log(props.cars),[props.cars])
 
 const columns = [
     {field:'brand', sortable: true, filter: true},
@@ -22,17 +19,18 @@ const columns = [
     {field:'year', sortable: true, filter: true},
     {field:'fuel', sortable: true, filter: true},
     {field:'price', sortable: true, filter: true}
-
+    
 ]
 
 return(
-    <div className="ag-theme-material" style={{height: 400, width: 600}}>
-        <AgGridReact 
-        
-        rowData={cars}
-        columnDefs={columns}
-        >
-        </AgGridReact>
+    <div className="ag-theme-alpine" style={{height: 800, width: 1200, padding:100}}>
+  <AgGridReact
+    onGridReady={ params => props.gridRef.current = params.api }
+    ref={props.gridRef}
+    rowSelection="single"
+    rowData={props.cars}
+    columnDefs={columns}>
+    </AgGridReact>
     </div>
 )
 
