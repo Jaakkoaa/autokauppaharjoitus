@@ -19,7 +19,7 @@ export default function AddCar(props) {
   }
 
 return(
-    <Paper style={{width:'80%', margin:'auto', padding:100}} elevation={3}>
+    <Paper style={{width:'60%', margin:'auto', marginTop:100,padding:20}} elevation={3}>
 
           <TextField
             name="brand"

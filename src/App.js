@@ -30,6 +30,11 @@ function App() {
     .catch(err => console.error(err));
   }
 
+  const exportData = () => {
+    gridRef.current.exportDataAsCsv({columnSeparator: ';', columnKeys: ['brand', 'model', 'color', 'year', 'fuel', 'price']});
+  }
+
+
   const editCar = (car, oldCar) => {
     axios.put(oldCar._links.self.href, car)
     .then(res => {
@@ -70,6 +75,7 @@ function App() {
         <Toolbar>
           <Button color="inherit" onClick={() => setBarIndex(1)}>Carshop</Button>
           <Button color="inherit" onClick={() => setBarIndex(3)}>Add Car</Button>
+          {barIndex===1 && <Button color="inherit" onClick={exportData}>Export</Button>}
         </Toolbar>
       </AppBar>
       {barIndex===1 && <Carlist editCar={editCar} gridRef={gridRef} cars={cars} deleteCar={deleteCar}/>}

@@ -8,9 +8,6 @@ import EditCar from './EditCar';
 
 export default function Carlist(props) {
 
-
-
-
 useEffect(() => console.log(props.cars),[props.cars])
 
 const columns = [
@@ -26,9 +23,10 @@ const columns = [
 ]
 
 return(
+  <>
+  
     <div className="ag-theme-alpine" style={{height: 800, padding:100, width:'80%',margin:'auto'}}>
   <AgGridReact
-    
     onGridReady={ params => props.gridRef.current = params.api }
     ref={props.gridRef}
     rowSelection="single"
@@ -36,6 +34,7 @@ return(
     columnDefs={columns}>
     </AgGridReact>
     </div>
+    </>
 )
 
 }
