@@ -5,9 +5,9 @@
   "dependencies": {
     "@ag-grid-community/core": "^26.1.0",
     "@ag-grid-community/react": "^26.1.0",
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "@mui/material": "^5.0.6",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.1.1",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",

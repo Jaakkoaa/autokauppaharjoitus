@@ -1,34 +1,25 @@
 
 import Paper from '@mui/material/Paper';
-import React, {useState} from 'react';
+import {useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 
-export default function EditCar(props) {
+export default function AddCar(props) {
 
-  const [car, setCar] = useState({brand: '', model: '', color: '', year: '', fuel: '', price: ''});
+    const [car, setCar] = useState({brand: '', model: '', color: '', year: '', fuel: '', price: ''});
 
-  const [open, setOpen] = useState(false);
+    const buttonClicked = () => {
+        props.function(car);
+    }
 
-  const buttonClicked = () => {
-      console.log(props.oldCar);
-      props.function(car, props.oldCar);
-      setOpen(false);
-   }
-
+    
   const inputChanged = (event) => {
     setCar({...car, [event.target.name]: event.target.value});
     console.log(car);
   }
 
 return(
-  <>
-  <Button onClick={() => setOpen(true)}>Edit</Button>
-  <Dialog open={open} onClose={() => setOpen(false)}>
-  <DialogContent>
+    <Paper style={{width:'80%', margin:'auto', padding:100}} elevation={3}>
 
           <TextField
             name="brand"
@@ -74,9 +65,7 @@ return(
           />
 
         <Button onClick={buttonClicked}>Add car</Button>
-    </DialogContent>
-    </Dialog>
-   </>
+    </Paper>
 )
 
 }

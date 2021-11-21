@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Carlist from './components/Carlist';
 import { useRef } from 'react';
-import EditCar from './components/EditCar';
+import AddCar from './components/AddCar';
 import axios from 'axios';
 import React, {useEffect} from 'react';
 
@@ -25,12 +25,13 @@ function App() {
     .then(res => {
       console.log(res);
       getCars();
+      alert('car added');
     })
     .catch(err => console.error(err));
   }
 
-  const editCar = (car, id) => {
-    axios.put(`${url}/${id}`, car)
+  const editCar = (car, oldCar) => {
+    axios.put(oldCar._links.self.href, car)
     .then(res => {
       console.log(res);
       getCars();
@@ -39,7 +40,10 @@ function App() {
   }
 
   const deleteCar = (car) => {
-     console.log(car) 
+    axios.delete(car._links.self.href)
+    .then(res => getCars())
+    .catch(err => console.error(err));
+    
   }
 
   const getCars = () => {
@@ -65,14 +69,11 @@ function App() {
       <AppBar>
         <Toolbar>
           <Button color="inherit" onClick={() => setBarIndex(1)}>Carshop</Button>
-          <Button color="inherit" onClick={() => setBarIndex(2)}>Add car</Button>
-          <Button color="inherit" onClick={() => setBarIndex(3)}>Edit car</Button>
-          <Button color="inherit" onClick={() => deleteCar(cars[gridRef.current.getSelectedNodes()[0].childIndex])}>Delete car</Button>
+          <Button color="inherit" onClick={() => setBarIndex(3)}>Add Car</Button>
         </Toolbar>
       </AppBar>
-      {barIndex===1 && <Carlist gridRef={gridRef} cars={cars}/>}
-      {barIndex===2 && <EditCar gridRef={gridRef} function={editCar}/>}
-      {barIndex===3 && <EditCar function={addCar}/>}
+      {barIndex===1 && <Carlist editCar={editCar} gridRef={gridRef} cars={cars} deleteCar={deleteCar}/>}
+      {barIndex===3 && <AddCar function={addCar}/>}
     </div>
   );
 }
